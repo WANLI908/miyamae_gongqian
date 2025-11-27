@@ -1,505 +1,496 @@
-{\rtf1\ansi\ansicpg950\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宮前日式料理 | 線上菜單</title>
+    <!-- 引入 Google Fonts: Noto Serif TC 提供日式質感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcfbf9; /* 米白和紙色 */
+            --text-color: #2c2c2c; /* 深炭灰 */
+            --accent-color: #8e7f72; /* 枯木色 */
+            --border-color: #e0ded9;
+            --highlight-bg: #f5f3ef;
+        }
 
-\f0\b\fs50 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 <!DOCTYPE html>\
-<html lang="zh-TW">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <title>\uc0\u23470 \u21069 \u26085 \u24335 \u26009 \u29702  | \u32218 \u19978 \u33756 \u21934 </title>\
-    <!-- \uc0\u24341 \u20837  Google Fonts: Noto Serif TC \u25552 \u20379 \u26085 \u24335 \u36074 \u24863  -->\
-    <link rel="preconnect" href="https://fonts.googleapis.com">\
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500;700&display=swap" rel="stylesheet">\
-    <style>\
-        :root \{\
-            --bg-color: #fcfbf9; /* \uc0\u31859 \u30333 \u21644 \u32025 \u33394  */\
-            --text-color: #2c2c2c; /* \uc0\u28145 \u28845 \u28784  */\
-            --accent-color: #8e7f72; /* \uc0\u26543 \u26408 \u33394  */\
-            --border-color: #e0ded9;\
-            --highlight-bg: #f5f3ef;\
-        \}\
-\
-        * \{\
-            box-sizing: border-box;\
-            margin: 0;\
-            padding: 0;\
-        \}\
-\
-        body \{\
-            font-family: 'Noto Serif TC', serif;\
-            background-color: var(--bg-color);\
-            color: var(--text-color);\
-            line-height: 1.6;\
-            padding-bottom: 50px;\
-        \}\
-\
-        /* Header / Hero */\
-        header \{\
-            text-align: center;\
-            padding: 60px 20px;\
-            border-bottom: 1px solid var(--accent-color);\
-            position: relative;\
-        \}\
-\
-        h1 \{\
-            font-size: 3rem;\
-            letter-spacing: 0.5rem;\
-            margin-bottom: 10px;\
-            font-weight: 700;\
-        \}\
-\
-        .subtitle \{\
-            font-size: 1.1rem;\
-            color: var(--accent-color);\
-            letter-spacing: 0.2rem;\
-            margin-bottom: 20px;\
-        \}\
-\
-        .info-bar \{\
-            font-size: 0.9rem;\
-            margin-top: 20px;\
-            display: flex;\
-            justify-content: center;\
-            gap: 20px;\
-            flex-wrap: wrap;\
-        \}\
-\
-        .info-item \{\
-            display: flex;\
-            align-items: center;\
-            gap: 5px;\
-        \}\
-\
-        /* Container */\
-        .container \{\
-            max-width: 1000px;\
-            margin: 0 auto;\
-            padding: 40px 20px;\
-        \}\
-\
-        /* Section Titles */\
-        .section-title \{\
-            text-align: center;\
-            font-size: 1.8rem;\
-            margin-bottom: 40px;\
-            position: relative;\
-            padding-bottom: 15px;\
-        \}\
-\
-        .section-title::after \{\
-            content: "";\
-            position: absolute;\
-            bottom: 0;\
-            left: 50%;\
-            transform: translateX(-50%);\
-            width: 60px;\
-            height: 2px;\
-            background-color: var(--accent-color);\
-        \}\
-\
-        /* Image Placeholder Style */\
-        .img-placeholder \{\
-            width: 100%;\
-            height: 200px;\
-            background-color: #eee;\
-            display: flex;\
-            align-items: center;\
-            justify-content: center;\
-            color: #999;\
-            font-size: 0.9rem;\
-            margin-bottom: 15px;\
-            border-radius: 2px;\
-            position: relative;\
-            overflow: hidden;\
-        \}\
-        \
-        .img-placeholder::before \{\
-            content: "\uc0\u33756 \u33394 \u22294 \u29255 ";\
-        \}\
-\
-        /* Recommendations Grid */\
-        .recommendation-grid \{\
-            display: grid;\
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\
-            gap: 30px;\
-            margin-bottom: 60px;\
-        \}\
-\
-        .rec-card \{\
-            background: #fff;\
-            padding: 20px;\
-            border: 1px solid var(--border-color);\
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);\
-            text-align: center;\
-            transition: transform 0.3s ease;\
-        \}\
-\
-        .rec-card:hover \{\
-            transform: translateY(-5px);\
-            border-color: var(--accent-color);\
-        \}\
-\
-        .rec-name \{\
-            font-size: 1.2rem;\
-            margin-bottom: 10px;\
-            font-weight: 500;\
-        \}\
-\
-        .rec-price \{\
-            color: var(--accent-color);\
-            font-weight: 700;\
-            font-size: 1.1rem;\
-        \}\
-\
-        /* Menu List Styling */\
-        .menu-category \{\
-            margin-bottom: 60px;\
-        \}\
-\
-        .category-header \{\
-            font-size: 1.4rem;\
-            margin-bottom: 25px;\
-            border-left: 4px solid var(--accent-color);\
-            padding-left: 15px;\
-            background-color: var(--highlight-bg);\
-            padding-top: 5px;\
-            padding-bottom: 5px;\
-        \}\
-\
-        .menu-note \{\
-            font-size: 0.85rem;\
-            color: #666;\
-            margin-bottom: 20px;\
-            padding-left: 10px;\
-        \}\
-\
-        .menu-grid \{\
-            display: grid;\
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\
-            gap: 20px;\
-        \}\
-\
-        .menu-item \{\
-            display: flex;\
-            justify-content: space-between;\
-            align-items: baseline;\
-            border-bottom: 1px dotted var(--border-color);\
-            padding-bottom: 10px;\
-        \}\
-\
-        .item-name \{\
-            font-weight: 500;\
-            font-size: 1.05rem;\
-        \}\
-        \
-        .item-desc \{\
-            font-size: 0.8rem;\
-            color: #888;\
-            display: block;\
-            margin-top: 4px;\
-        \}\
-\
-        .item-price \{\
-            font-family: sans-serif; /* Numbers look better in sans */\
-            font-weight: 600;\
-            white-space: nowrap;\
-            margin-left: 15px;\
-        \}\
-\
-        .price-label \{\
-            font-size: 0.7rem;\
-            color: #999;\
-            margin-right: 2px;\
-            font-weight: normal;\
-        \}\
-\
-        /* Footer */\
-        footer \{\
-            background-color: var(--text-color);\
-            color: #fff;\
-            text-align: center;\
-            padding: 40px 20px;\
-            font-size: 0.9rem;\
-        \}\
-\
-        footer p \{\
-            margin-bottom: 10px;\
-            opacity: 0.8;\
-        \}\
-\
-        /* Responsive */\
-        @media (max-width: 600px) \{\
-            h1 \{ font-size: 2.2rem; \}\
-            .info-bar \{ flex-direction: column; gap: 10px; \}\
-            .menu-item \{ flex-direction: column; gap: 5px; \}\
-            .item-price \{ align-self: flex-end; \}\
-        \}\
-    </style>\
-</head>\
-<body>\
-\
-    <header>\
-        <h1>\uc0\u23470 \u21069 </h1>\
-        <div class="subtitle">JAPANESE CUISINE</div>\
-        <div class="info-bar">\
-            <div class="info-item">\uc0\u55357 \u56525  \u26032 \u21271 \u24066 \u27193 \u26519 \u21312 \u25991 \u21270 \u34903  17 \u34399 </div>\
-            <div class="info-item">\uc0\u55357 \u56542  02-2683-0008</div>\
-        </div>\
-    </header>\
-\
-    <div class="container">\
-\
-        <!-- \uc0\u30070 \u23395 \u25512 \u34214  Section -->\
-        <section id="recommendations">\
-            <h2 class="section-title">\uc0\u30070 \u23395 \u25512 \u34214 </h2>\
-            <div class="recommendation-grid">\
-                <!-- \uc0\u26681 \u25818 \u33756 \u21934 \u36984 \u25799 \u30340 \u39640 \u20729 /\u29305 \u33394 \u21697 \u38917  -->\
-                <div class="rec-card">\
-                    <div class="img-placeholder"></div>\
-                    <h3 class="rec-name">\uc0\u26997 \u19978 \u28023 \u39854 \u20028 </h3>\
-                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">\uc0\u34662 \u12289 \u24178 \u35997 \u12289 \u39770 \u32922 \u12289 \u27604 \u30446 \u39770 \u12289 \u26143 \u39995 \u12289 \u39853 \u39770 \u21365 </p>\
-                    <div class="rec-price">$400 / \uc0\u23450 \u39135  $480</div>\
-                </div>\
-\
-                <div class="rec-card">\
-                    <div class="img-placeholder"></div>\
-                    <h3 class="rec-name">\uc0\u28900 \u29694 \u27969 \u39854 \u39770 </h3>\
-                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">\uc0\u27599 \u26085 \u26032 \u39854 \u28417 \u29554 \u65292 \u29694 \u28900 \u32654 \u21619 </p>\
-                    <div class="rec-price">\uc0\u26178 \u20729 </div>\
-                </div>\
-\
-                <div class="rec-card">\
-                    <div class="img-placeholder"></div>\
-                    <h3 class="rec-name">\uc0\u29305 \u19978 \u29983 \u39770 \u29255 </h3>\
-                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">2\uc0\u38587 \u34662 \u12289 2\u38982 \u24178 \u35997 \u12289 5\u29255 \u39770 </p>\
-                    <div class="rec-price">$400</div>\
-                </div>\
-\
-                <div class="rec-card">\
-                    <div class="img-placeholder"></div>\
-                    <h3 class="rec-name">\uc0\u28856 \u24291 \u23798 \u29983 \u34836  (4\u31890 )</h3>\
-                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">\uc0\u20358 \u33258 \u26085 \u26412 \u30340 \u39854 \u29980 \u28363 \u21619 </p>\
-                    <div class="rec-price">$250</div>\
-                </div>\
-            </div>\
-        </section>\
-\
-        <!-- \uc0\u29983 \u39135 \u20028 \u39006  & \u21050 \u36523  -->\
-        <section class="menu-category">\
-            <h3 class="category-header">\uc0\u29983 \u39135 \u20028 \u39151 \u12539 \u21050 \u36523 </h3>\
-            <p class="menu-note">* \uc0\u20028 \u39151 \u21934 \u40670 \u22343 \u38468 \u28271  / \u23450 \u39135 \u22343 \u38468 \u28271 \u12289 \u27801 \u25289 \u12289 \u25163 \u25458 \u12289 \u33590 \u30871 \u33976 </p>\
-            <div class="menu-grid">\
-                <!-- \uc0\u29983 \u39135 \u20028  -->\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u32156 \u21512 \u29983 \u39770 \u29255 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>250 / <span class="price-label">\u23450 </span>330</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u39853 \u39770 \u35242 \u23376 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>280 / <span class="price-label">\u23450 </span>360</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u39850 \u39770 \u37941 \u28779 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>280 / <span class="price-label">\u23450 </span>360</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u29980 \u34662 \u24178 \u35997 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>320 / <span class="price-label">\u23450 </span>400</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u28825 \u29138 \u28023 \u39854 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>300 / <span class="price-label">\u23450 </span>380</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div>\
-                        <div class="item-name">\uc0\u28825 \u29138 \u39853 \u32922 \u20028 </div>\
-                    </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>320 / <span class="price-label">\u23450 </span>400</div>\
-                </div>\
-                \
-                <!-- \uc0\u21050 \u36523  -->\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u32156 \u21512 \u29983 \u39770 \u29255  (5\u29255 )</div>\
-                    <div class="item-price">180</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u32156 \u21512 \u29983 \u39770 \u29255  (9\u29255 )</div>\
-                    <div class="item-price">300</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u39853 \u39770 \u29983 \u39770 \u29255  (3\u29255 )</div>\
-                    <div class="item-price">150</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u39853 \u39770 \u29983 \u39770 \u29255  (7\u29255 )</div>\
-                    <div class="item-price">300</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u29980 \u34662 \u21050 \u36523  (5\u38587 )</div>\
-                    <div class="item-price">200</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u22825 \u20351 \u34662  (\u19968 \u38587 )</div>\
-                    <div class="item-price">50</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u24178 \u35997  (\u19968 \u38982 )</div>\
-                    <div class="item-price">70</div>\
-                </div>\
-            </div>\
-        </section>\
-\
-        <!-- \uc0\u29087 \u39135 \u20028 \u39151  & \u21654 \u21737  -->\
-        <section class="menu-category">\
-            <h3 class="category-header">\uc0\u29087 \u39135 \u20028 \u39151 \u12539 \u21654 \u21737 </h3>\
-            <p class="menu-note">\uc0\u8251 \u24179 \u26085 \u21320 \u38291 \u20379 \u25033 \u29087 \u39135 \u20028 \u8251 </p>\
-            <div class="menu-grid">\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u29275 \u20028 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>160 / <span class="price-label">\u23450 </span>240</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u39894 \u39770 \u20028 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>180 / <span class="price-label">\u23450 </span>260</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u29031 \u29138 \u38622 \u33151 \u20028 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>180 / <span class="price-label">\u23450 </span>260</div>\
-                </div>\
-                \
-                <!-- \uc0\u21654 \u21737  -->\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u21644 \u39080 \u28856 \u38622 \u21654 \u21737 \u39151 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>170 / <span class="price-label">\u23450 </span>250</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u21402 \u20999 \u35948 \u25490 \u21654 \u21737 \u39151 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>170 / <span class="price-label">\u23450 </span>250</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u21487 \u27138 \u39173 \u21654 \u21737 \u39151 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>180 / <span class="price-label">\u23450 </span>260</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u37221 \u28856 \u28023 \u34662 \u21654 \u21737 \u39151 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>180 / <span class="price-label">\u23450 </span>260</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u36575 \u27580 \u34809 \u21654 \u21737 \u39151 </div>\
-                    <div class="item-price"><span class="price-label">\uc0\u21934 </span>180 / <span class="price-label">\u23450 </span>260</div>\
-                </div>\
-            </div>\
-        </section>\
-\
-        <!-- \uc0\u28856 \u29289 \u33287 \u28900 \u29289  -->\
-        <section class="menu-category">\
-            <h3 class="category-header">\uc0\u28856 \u29289 \u12539 \u28900 \u29289 </h3>\
-            <div class="menu-grid">\
-                <!-- \uc0\u28856 \u29289  -->\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u40643 \u37329 \u33030 \u34223 </div>\
-                    <div class="item-price">100</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u29577 \u23376 \u35910 \u33104 </div>\
-                    <div class="item-price">120</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u21345 \u28363 \u35948 \u25490 </div>\
-                    <div class="item-price">140</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u34662 \u22825 \u23142 \u32645 </div>\
-                    <div class="item-price">140</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u32993 \u40635 \u21776 \u25562 \u38622 </div>\
-                    <div class="item-price">150</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u29694 \u27969 \u36879 \u25277 </div>\
-                    <div class="item-price">270</div>\
-                </div>\
-                \
-                <!-- \uc0\u28900 \u29289  -->\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28900 \u29577 \u31859 \u31565  (4\u25903 )</div>\
-                    <div class="item-price">100</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28900 \u26126 \u22826 \u23376 \u38622 \u32709  (3\u25903 )</div>\
-                    <div class="item-price">280</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28900 \u26898 \u40573 \u26494 \u38442 \u35948 </div>\
-                    <div class="item-price">240</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28900 \u21320 \u20180 \u39770 </div>\
-                    <div class="item-price">250</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28900 \u38738 \u29976 \u39770 \u19979 \u24052 </div>\
-                    <div class="item-price">400</div>\
-                </div>\
-            </div>\
-        </section>\
-\
-        <!-- \uc0\u20854 \u20182 \u21934 \u40670  -->\
-        <section class="menu-category">\
-            <h3 class="category-header">\uc0\u19968 \u21697 \u26009 \u29702 \u12539 \u25163 \u25458 \u12539 \u28271 \u21697 </h3>\
-            <div class="menu-grid">\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u32993 \u40635 \u38738 \u33457 \u33756 </div>\
-                    <div class="item-price">100</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28856 \u40635 \u31980  (1\u31890 )</div>\
-                    <div class="item-price">20</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u21644 \u39080 \u40008 \u39770 \u32925 \u27801 \u25289 </div>\
-                    <div class="item-price">170</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u34310 \u31565 /\u34662 /\u29275 \u33953  \u25163 \u25458 </div>\
-                    <div class="item-price">50</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u21619 \u22092 \u28271 </div>\
-                    <div class="item-price">30</div>\
-                </div>\
-                <div class="menu-item">\
-                    <div class="item-name">\uc0\u28023 \u39854 \u21619 \u22092 \u28879 \u40845 \u40629 </div>\
-                    <div class="item-price">170</div>\
-                </div>\
-            </div>\
-        </section>\
-\
-    </div>\
-\
-    <footer>\
-        <p>\uc0\u23470 \u21069 \u26085 \u24335 \u26009 \u29702 </p>\
-        <p>\uc0\u26032 \u21271 \u24066 \u27193 \u26519 \u21312 \u25991 \u21270 \u34903  17 \u34399  | 2683-0008</p>\
-        <p style="font-size: 0.8rem; margin-top: 15px;">\'a9 2024 Gong Qian Japanese Restaurant</p>\
-    </footer>\
-\
-</body>\
-</html>}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Header / Hero */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--accent-color);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 0.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            letter-spacing: 0.2rem;
+            margin-bottom: 20px;
+        }
+
+        .info-bar {
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        /* Image Placeholder Style */
+        .img-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .img-placeholder::before {
+            content: "菜色圖片";
+        }
+
+        /* Recommendations Grid */
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .rec-card {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .rec-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .rec-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .rec-price {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Menu List Styling */
+        .menu-category {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            background-color: var(--highlight-bg);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .menu-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px dotted var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .item-name {
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        
+        .item-desc {
+            font-size: 0.8rem;
+            color: #888;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .item-price {
+            font-family: sans-serif; /* Numbers look better in sans */
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        .price-label {
+            font-size: 0.7rem;
+            color: #999;
+            margin-right: 2px;
+            font-weight: normal;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .info-bar { flex-direction: column; gap: 10px; }
+            .menu-item { flex-direction: column; gap: 5px; }
+            .item-price { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>宮前</h1>
+        <div class="subtitle">JAPANESE CUISINE</div>
+        <div class="info-bar">
+            <div class="info-item">📍 新北市樹林區文化街 17 號</div>
+            <div class="info-item">📞 02-2683-0008</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 當季推薦 Section -->
+        <section id="recommendations">
+            <h2 class="section-title">當季推薦</h2>
+            <div class="recommendation-grid">
+                <!-- 根據菜單選擇的高價/特色品項 -->
+                <div class="rec-card">
+                    <div class="img-placeholder"></div>
+                    <h3 class="rec-name">極上海鮮丼</h3>
+                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">蝦、干貝、魚肚、比目魚、星鰻、鮭魚卵</p>
+                    <div class="rec-price">$400 / 定食 $480</div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="img-placeholder"></div>
+                    <h3 class="rec-name">烤現流鮮魚</h3>
+                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">每日新鮮漁獲，現烤美味</p>
+                    <div class="rec-price">時價</div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="img-placeholder"></div>
+                    <h3 class="rec-name">特上生魚片</h3>
+                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">2隻蝦、2顆干貝、5片魚</p>
+                    <div class="rec-price">$400</div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="img-placeholder"></div>
+                    <h3 class="rec-name">炸廣島生蠔 (4粒)</h3>
+                    <p class="rec-desc" style="font-size:0.8rem; color:#777; margin-bottom:10px;">來自日本的鮮甜滋味</p>
+                    <div class="rec-price">$250</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生食丼類 & 刺身 -->
+        <section class="menu-category">
+            <h3 class="category-header">生食丼飯・刺身</h3>
+            <p class="menu-note">* 丼飯單點均附湯 / 定食均附湯、沙拉、手捲、茶碗蒸</p>
+            <div class="menu-grid">
+                <!-- 生食丼 -->
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">綜合生魚片丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>250 / <span class="price-label">定</span>330</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">鮭魚親子丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>280 / <span class="price-label">定</span>360</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">鮪魚鐵火丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>280 / <span class="price-label">定</span>360</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">甜蝦干貝丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>320 / <span class="price-label">定</span>400</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">炙燒海鮮丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>300 / <span class="price-label">定</span>380</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <div class="item-name">炙燒鮭肚丼</div>
+                    </div>
+                    <div class="item-price"><span class="price-label">單</span>320 / <span class="price-label">定</span>400</div>
+                </div>
+                
+                <!-- 刺身 -->
+                <div class="menu-item">
+                    <div class="item-name">綜合生魚片 (5片)</div>
+                    <div class="item-price">180</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">綜合生魚片 (9片)</div>
+                    <div class="item-price">300</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">鮭魚生魚片 (3片)</div>
+                    <div class="item-price">150</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">鮭魚生魚片 (7片)</div>
+                    <div class="item-price">300</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">甜蝦刺身 (5隻)</div>
+                    <div class="item-price">200</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">天使蝦 (一隻)</div>
+                    <div class="item-price">50</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">干貝 (一顆)</div>
+                    <div class="item-price">70</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 熟食丼飯 & 咖哩 -->
+        <section class="menu-category">
+            <h3 class="category-header">熟食丼飯・咖哩</h3>
+            <p class="menu-note">※平日午間供應熟食丼※</p>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">牛丼</div>
+                    <div class="item-price"><span class="price-label">單</span>160 / <span class="price-label">定</span>240</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">鯖魚丼</div>
+                    <div class="item-price"><span class="price-label">單</span>180 / <span class="price-label">定</span>260</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">照燒雞腿丼</div>
+                    <div class="item-price"><span class="price-label">單</span>180 / <span class="price-label">定</span>260</div>
+                </div>
+                
+                <!-- 咖哩 -->
+                <div class="menu-item">
+                    <div class="item-name">和風炸雞咖哩飯</div>
+                    <div class="item-price"><span class="price-label">單</span>170 / <span class="price-label">定</span>250</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">厚切豬排咖哩飯</div>
+                    <div class="item-price"><span class="price-label">單</span>170 / <span class="price-label">定</span>250</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸可樂餅咖哩飯</div>
+                    <div class="item-price"><span class="price-label">單</span>180 / <span class="price-label">定</span>260</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">酥炸海蝦咖哩飯</div>
+                    <div class="item-price"><span class="price-label">單</span>180 / <span class="price-label">定</span>260</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸軟殼蟹咖哩飯</div>
+                    <div class="item-price"><span class="price-label">單</span>180 / <span class="price-label">定</span>260</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 炸物與烤物 -->
+        <section class="menu-category">
+            <h3 class="category-header">炸物・烤物</h3>
+            <div class="menu-grid">
+                <!-- 炸物 -->
+                <div class="menu-item">
+                    <div class="item-name">炸黃金脆薯</div>
+                    <div class="item-price">100</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸玉子豆腐</div>
+                    <div class="item-price">120</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸卡滋豬排</div>
+                    <div class="item-price">140</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸蝦天婦羅</div>
+                    <div class="item-price">140</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">胡麻唐揚雞</div>
+                    <div class="item-price">150</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸現流透抽</div>
+                    <div class="item-price">270</div>
+                </div>
+                
+                <!-- 烤物 -->
+                <div class="menu-item">
+                    <div class="item-name">烤玉米筍 (4支)</div>
+                    <div class="item-price">100</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">烤明太子雞翅 (3支)</div>
+                    <div class="item-price">280</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">烤椒鹽松阪豬</div>
+                    <div class="item-price">240</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">烤午仔魚</div>
+                    <div class="item-price">250</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">烤青甘魚下巴</div>
+                    <div class="item-price">400</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 其他單點 -->
+        <section class="menu-category">
+            <h3 class="category-header">一品料理・手捲・湯品</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-name">胡麻青花菜</div>
+                    <div class="item-price">100</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">炸麻糬 (1粒)</div>
+                    <div class="item-price">20</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">和風鱈魚肝沙拉</div>
+                    <div class="item-price">170</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">蘆筍/蝦/牛蒡 手捲</div>
+                    <div class="item-price">50</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">味噌湯</div>
+                    <div class="item-price">30</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-name">海鮮味噌烏龍麵</div>
+                    <div class="item-price">170</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>宮前日式料理</p>
+        <p>新北市樹林區文化街 17 號 | 2683-0008</p>
+        <p style="font-size: 0.8rem; margin-top: 15px;">© 2024 Gong Qian Japanese Restaurant</p>
+    </footer>
+
+</body>
+</html>
