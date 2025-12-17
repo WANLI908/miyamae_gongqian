@@ -1,7 +1,584 @@
-</footer>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>宮前日式料理 | MIYAMAE</title>
+    <!-- 引入 FontAwesome 圖標 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 純白日式配色 */
+            --bg-color: #FFFFFF;       /* 純白背景 */
+            --card-bg: #FFFFFF;        /* 卡片背景 */
+            --text-main: #1A1A1A;      /* 極深灰 (取代純黑，更具質感) */
+            --text-sub: #666666;       /* 中灰 */
+            --accent: #C94C34;         /* 朱紅色 (取自Logo印章色) */
+            --border: #F0F0F0;         /* 極淺灰線條 */
+            --nav-bg: #FFFFFF;         /* 底部導航背景 */
+            --nav-shadow: rgba(0,0,0,0.08);
+            --nav-height: 65px;
+        }
 
-<!-- 底部固定功能列 (純白風格) -->
-    <nav class="
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: calc(var(--nav-height) + 30px);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+        }
+
+        /* 頂部 Logo 區 */
+        header {
+            text-align: center;
+            padding: 30px 20px 10px;
+            background: var(--bg-color);
+        }
+
+        .logo-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-img {
+            /* 控制 Logo 大小 */
+            max-width: 200px; 
+            height: auto;
+            display: block;
+        }
+
+        .store-info-top {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            margin-top: 5px;
+        }
+        
+        .store-info-top i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* 容器設定 */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+
+        /* 標題樣式 - 極簡線條 */
+        .section-header {
+            text-align: left;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--text-main);
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+        }
+        
+        .section-header span {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 500;
+        }
+
+        /* 當季推薦 (橫向捲動) */
+        .rec-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding-bottom: 20px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        .rec-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .rec-card {
+            min-width: 220px;
+            background: var(--card-bg);
+            border-radius: 4px; /* 直角微圓 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 輕柔陰影 */
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #F7F7F7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #CCCCCC;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .img-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .rec-content {
+            padding: 12px;
+        }
+
+        .rec-title {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .rec-desc {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            min-height: 2.4em;
+            line-height: 1.4;
+        }
+
+        .rec-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        /* 一般菜單列表 */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* 垂直置中 */
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item-info {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .item-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .item-sub {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .item-price-group {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .price-tag {
+            display: block;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+        
+        .price-tag small {
+            color: var(--text-sub);
+            font-size: 0.7rem;
+            margin-right: 4px;
+            font-weight: 400;
+        }
+
+        /* 底部固定導航列 (修改版：電話在最右) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 500px;
+            height: var(--nav-height);
+            background: var(--nav-bg);
+            border-radius: 12px; /* 方形圓角 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px var(--nav-shadow);
+            z-index: 1000;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            color: var(--text-sub);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex: 1;
+            height: 100%;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-btn i {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .nav-btn span {
+            font-weight: 500;
+        }
+
+        /* 特別強調右側電話按鈕 */
+        .nav-btn.action-call {
+            color: var(--accent);
+        }
+        
+        .nav-btn.action-call i {
+            color: var(--accent);
+        }
+
+        .nav-btn:active {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        /* 分隔線 */
+        .nav-divider {
+            width: 1px;
+            height: 20px;
+            background-color: var(--border);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px 20px;
+            font-size: 0.75rem;
+            color: #999;
+            letter-spacing: 0.05em;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <!-- 請將您的 logo 圖片命名為 logo.png 並放在同一資料夾，或修改 src -->
+            <img src="logo.png" alt="宮前 MIYAMAE" class="logo-img">
+        </div>
+        <div class="store-info-top">
+            <i class="fas fa-map-marker-alt"></i> 新北市樹林區文化街 17 號
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 當季推薦 -->
+        <section>
+            <div class="section-header">
+                <h2>當季推薦</h2>
+                <span>Seasonal</span>
+            </div>
+            <div class="rec-scroll-container">
+                <!-- 推薦 1 -->
+                <div class="rec-card">
+                    <div class="img-placeholder">
+                        <div><i class="fas fa-image"></i></div>
+                    </div>
+                    <div class="rec-content">
+                        <div class="rec-title">極上海鮮丼</div>
+                        <div class="rec-desc">蝦、干貝、魚肚、比目魚、星鰻、鮭魚卵</div>
+                        <div class="rec-price">$400</div>
+                    </div>
+                </div>
+                <!-- 推薦 2 -->
+                <div class="rec-card">
+                    <div class="img-placeholder">
+                        <div><i class="fas fa-fish"></i></div>
+                    </div>
+                    <div class="rec-content">
+                        <div class="rec-title">特上生魚片</div>
+                        <div class="rec-desc">2隻蝦、2顆干貝、5片魚</div>
+                        <div class="rec-price">$400</div>
+                    </div>
+                </div>
+                <!-- 推薦 3 -->
+                <div class="rec-card">
+                    <div class="img-placeholder">
+                        <div><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="rec-content">
+                        <div class="rec-title">炸廣島生蠔(4粒)</div>
+                        <div class="rec-desc">酥脆多汁，來自海洋的鮮味</div>
+                        <div class="rec-price">$250</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 菜單分類：生食 -->
+        <section>
+            <div class="section-header">
+                <h2>生食丼飯・刺身</h2>
+                <span>Sashimi Don</span>
+            </div>
+            <div class="menu-list">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">綜合生魚片丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>250</span>
+                        <span class="price-tag"><small>定</small>330</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">鮭魚親子丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>280</span>
+                        <span class="price-tag"><small>定</small>360</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">甜蝦干貝丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>320</span>
+                        <span class="price-tag"><small>定</small>400</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">炙燒海鮮丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>300</span>
+                        <span class="price-tag"><small>定</small>380</span>
+                    </div>
+                </div>
+                <!-- 刺身 -->
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">綜合生魚片 (9片)</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">300</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">天使蝦 (一隻)</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">50</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 菜單分類：熟食與咖哩 -->
+        <section>
+            <div class="section-header">
+                <h2>熟食丼・咖哩</h2>
+                <span>Cooked Food</span>
+            </div>
+            <div style="font-size:0.75rem; color:var(--accent); margin-bottom:15px; margin-top:-10px;">
+                ※ 平日午間供應熟食丼 ※
+            </div>
+            <div class="menu-list">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">牛丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>160</span>
+                        <span class="price-tag"><small>定</small>240</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">鯖魚丼</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>180</span>
+                        <span class="price-tag"><small>定</small>260</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">和風炸雞咖哩飯</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>170</span>
+                        <span class="price-tag"><small>定</small>250</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">厚切豬排咖哩飯</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag"><small>單</small>170</span>
+                        <span class="price-tag"><small>定</small>250</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 菜單分類：炸物與烤物 -->
+        <section>
+            <div class="section-header">
+                <h2>炸物・烤物</h2>
+                <span>Fried & Grilled</span>
+            </div>
+            <div class="menu-list">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">胡麻唐揚雞</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">150</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">炸蝦天婦羅</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">140</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">炸現流透抽</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">270</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">烤椒鹽松阪豬</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">240</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">烤午仔魚</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">250</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 菜單分類：單品 -->
+        <section>
+            <div class="section-header">
+                <h2>一品料理</h2>
+                <span>A La Carte</span>
+            </div>
+            <div class="menu-list">
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">胡麻青花菜</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">100</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">和風鱈魚肝沙拉</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">170</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">炸麻糬(1粒)</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">20</span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">海鮮味噌烏龍麵</div>
+                    </div>
+                    <div class="item-price-group">
+                        <span class="price-tag">170</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>宮前 MIYAMAE JAPANESE CUISINE</p>
+        <p>© 2024 All Rights Reserved.</p>
+    </footer>
+
+    <!-- 底部固定功能列 (純白風格) -->
     <nav class="bottom-nav">
         <!-- Google 導航 -->
         <a href="https://www.google.com/maps/search/?api=1&query=宮前日式料理+新北市樹林區文化街17號" target="_blank" class="nav-btn">
