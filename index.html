@@ -671,6 +671,9 @@
             '其他': { icon: 'fa-shapes', color: 'bg-gray-400', chartColor: '#9ca3af', iconBg: 'bg-gray-100', text: 'text-gray-600' }
             };
 
+        //全域變數
+            let globalCatStats = {};
+
         // 購物篩選相關
         let currentCategoryFilter = 'all';
         let currentStoreFilter = 'all';
@@ -2229,75 +2232,95 @@ function getPrepListHTML() {
     }
 ];
 
-    // --- 開啟分類明細視窗 ---
-function openCategoryDetails(categoryName, totalAmount) {
+    // --- 開啟分類明細視窗 (讀取全域變數 + 完整列表顯示版) ---
+function openCategoryDetails(categoryName) {
     const modal = document.getElementById('modal-category-list');
     const content = document.getElementById('cat-modal-content');
     const title = document.getElementById('cat-modal-title');
     const iconBox = document.getElementById('cat-modal-icon');
     const sumLabel = document.getElementById('cat-modal-sum');
     
-    // 1. 設定標題、顏色與金額
+    // 1. 設定 Header (標題、圖示、總金額)
     const cfg = catConfig[categoryName] || catConfig['其他'];
     title.innerText = categoryName;
+    
+    // 設定圖示樣式
     iconBox.className = `w-10 h-10 rounded-full flex items-center justify-center text-xl ${cfg.iconBg} ${cfg.text}`;
     iconBox.innerHTML = `<i class="fa-solid ${cfg.icon}"></i>`;
     
-    // ★★★ 直接顯示傳進來的金額，不用再算了！ ★★★
+    // 設定總金額 (從全域變數讀取)
+    const totalAmount = globalCatStats[categoryName] ? globalCatStats[categoryName].amount : 0;
     sumLabel.innerText = `NT$${totalAmount.toLocaleString()}`;
     
+    // 初始化載入畫面
     content.innerHTML = '<div class="text-center text-gray-400 py-10"><i class="fa-solid fa-spinner fa-spin"></i> 載入中...</div>';
     
     openModal('modal-category-list');
 
-    // 2. 讀取並篩選資料 (這裡只負責產生列表 HTML)
-    const processData = (data) => {
+    // ============================================================
+    // ★★★ 這裡就是你要補上的 processData 函式定義 ★★★
+    // ============================================================
+    function processData(data) {
+        // 1. 如果完全沒資料
         if (!data) {
             content.innerHTML = '<div class="text-center text-gray-400 py-10">沒有資料</div>';
             return;
         }
 
+        // 2. 轉換資料格式
         const entries = Array.isArray(data) ? data.map((item, i) => [`local_${i}`, item]) : Object.entries(data);
         
-        // 篩選出該分類的項目
+        // 3. 篩選出該分類 + 反轉排序 (讓新的在上面)
         const filteredItems = entries
             .filter(([_, item]) => item.category === categoryName)
             .reverse();
 
+        // 4. 如果篩選完是空的
         if (filteredItems.length === 0) {
             content.innerHTML = '<div class="text-center text-gray-400 py-10">此分類尚無支出</div>';
             return;
         }
 
+        // 5. 開始產生 HTML
         let html = '';
-        // ★ 這裡原本的 totalTwd 變數和累加邏輯都刪掉了，因為上面已經顯示了
 
         filteredItems.forEach(([key, ex]) => {
+            // 處理金額與匯率顯示
             const amount = parseInt(ex.amount) || 0;
             const amountTwd = ex.currency === 'TWD' ? amount : Math.round(amount * JPY_RATE);
+            
             const priceDisplay = ex.currency === 'TWD' ? `NT$${amount.toLocaleString()}` : `¥${amount.toLocaleString()}`;
             const subDisplay = ex.currency === 'TWD' ? '' : `<div class="text-[10px] text-gray-400">≈ NT$${amountTwd.toLocaleString()}</div>`;
             
+            // 處理憑證圖示
             const isDrive = ex.receiptUrl && ex.receiptUrl.includes('drive.google.com');
             const iconClass = isDrive ? 'fa-file-contract' : 'fa-receipt';
             const receiptIcon = ex.receiptUrl 
                 ? `<button onclick="openVoucherImage('${ex.receiptUrl}')" class="text-blue-500 hover:bg-blue-50 p-1 rounded"><i class="fa-solid ${iconClass}"></i></button>` 
                 : '';
 
+            // 產生單一項目的卡片 HTML
             html += `
-                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center relative overflow-hidden">
+                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center relative overflow-hidden mb-2">
+                    <!-- 左側色條 (跟隨分類顏色) -->
                     <div class="w-1 absolute left-0 top-0 bottom-0" style="background-color: ${cfg.chartColor}"></div>
+                    
+                    <!-- 中間資訊 -->
                     <div class="flex-1 ml-3">
                         <div class="font-bold text-gray-700 text-sm line-clamp-1">${ex.item}</div>
                         <div class="text-xs text-gray-400 flex items-center gap-2 mt-0.5">
                             <span>${ex.fullTime ? ex.fullTime.slice(5, 16).replace('T', ' ') : ex.date}</span>
-                            <span class="bg-gray-100 px-1 rounded text-[10px]">${ex.payer}</span>
+                            <span class="bg-gray-100 px-1 rounded text-[10px]">${ex.payer || '未知'}</span>
                         </div>
                     </div>
-                    <div class="text-right flex flex-col items-end mr-3">
+                    
+                    <!-- 右側金額 -->
+                    <div class="text-right flex flex-col items-end mr-3 min-w-[70px]">
                         <div class="font-bold text-gray-700">${priceDisplay}</div>
                         ${subDisplay}
                     </div>
+                    
+                    <!-- 操作按鈕 -->
                     <div class="flex gap-1 pl-2 border-l border-gray-100">
                         ${receiptIcon}
                         <button onclick="openBudgetModal('${key}'); closeModal('modal-category-list');" class="text-gray-400 hover:text-blue-500 p-2"><i class="fa-solid fa-pen"></i></button>
@@ -2305,9 +2328,14 @@ function openCategoryDetails(categoryName, totalAmount) {
                 </div>`;
         });
         
+        // 6. 寫入畫面
         content.innerHTML = html;
-    };
+    }
+    // ============================================================
+    // ★★★ processData 定義結束 ★★★
+    // ============================================================
 
+    // 3. 呼叫資料讀取 (這段在最後面)
     if (db) {
         db.ref('expenses').once('value').then(snapshot => processData(snapshot.val()));
     } else {
@@ -2853,8 +2881,10 @@ function renderBudget() {
     const loadData = (data) => {
         const contentArea = document.getElementById('budget-content-area');
         
-        // 1. 初始化所有統計變數
-        let catStats = {}; 
+        // ★★★ 修改 1: 重置全域統計變數 (而不是宣告新的 let catStats) ★★★
+        globalCatStats = {};
+        // 先幫每個類別歸零，確保每個類別都存在
+        Object.keys(catConfig).forEach(cat => {globalCatStats[cat] = { amount: 0, count: 0 };}); 
         let personalTotal = { '妹妹': 0, '爸爸': 0, '媽媽': 0, '姊姊': 0 }; 
         let paidTotal = { '妹妹': 0, '爸爸': 0, '媽媽': 0, '姊姊': 0 };     
         
@@ -2886,10 +2916,17 @@ function renderBudget() {
             
             // --- A. 全域統計 (計算所有資料) ---
             
-            // 類別統計 (圓餅圖用)
-            if (!catStats[ex.category]) catStats[ex.category] = { amount: 0, count: 0 };
-            catStats[ex.category].amount += amountTwd;
-            catStats[ex.category].count += 1;
+            // ★★★ 修改 2: 寫入 globalCatStats ★★★
+            // 因為上面已經初始化過，這裡直接累加即可
+            if (globalCatStats[ex.category]) {
+                globalCatStats[ex.category].amount += amountTwd;
+                globalCatStats[ex.category].count += 1;
+            } else {
+                // 防呆：萬一有舊資料是舊分類
+                if (!globalCatStats['其他']) globalCatStats['其他'] = { amount: 0, count: 0 };
+                globalCatStats['其他'].amount += amountTwd;
+                globalCatStats['其他'].count += 1;
+            }
             grandTotal += amountTwd;
 
             // ★ 貨幣與付款方式統計
@@ -2988,42 +3025,45 @@ function renderBudget() {
                     </div>`;
             });
 
-            const sortedCats = Object.entries(catStats).sort((a, b) => b[1].amount - a[1].amount);
+            // ★★★ 修改 3: 產生長條圖列表時，讀取 globalCatStats ★★★
+        const sortedCats = Object.entries(globalCatStats).sort((a, b) => b[1].amount - a[1].amount);
+
             let catListHtml = `<div class="mt-6 space-y-5 px-1">`;
             let chartDataObj = {}; 
+
             sortedCats.forEach(([catName, stats]) => {
-    chartDataObj[catName] = stats.amount;
-    const cfg = catConfig[catName] || catConfig['其他'];
-    const percent = grandTotal > 0 ? ((stats.amount / grandTotal) * 100).toFixed(1) : 0;
+    // 只顯示有金額或原本預設的項目
+            if (stats.amount === 0 && stats.count === 0) return;
+
+            chartDataObj[catName] = stats.amount;
+            const cfg = catConfig[catName] || catConfig['其他'];
+            const percent = grandTotal > 0 ? ((stats.amount / grandTotal) * 100).toFixed(1) : 0;
     
-    // ★★★ 修改這裡：加入 onclick 事件與 cursor-pointer 樣式 ★★★
-    catListHtml += `
-        <div onclick="openCategoryDetails('${catName}', ${stats.amount})" class="flex items-center gap-3 cursor-pointer active:scale-[0.98] transition hover:bg-gray-50 p-2 rounded-xl -mx-2">
-            
-            <div class="w-10 h-10 rounded-full ${cfg.iconBg} ${cfg.text} flex items-center justify-center text-lg shrink-0">
-                <i class="fa-solid ${cfg.icon}"></i>
-            </div>
-            
-            <div class="flex-1 min-w-0">
-                <div class="flex justify-between items-end mb-1">
-                    <div class="flex items-center gap-2">
-                        <span class="font-bold text-gray-700">${catName}</span>
-                        <span class="text-xs text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">${stats.count} 筆</span>
+    // ★★★ 修改 4: onclick 不用再傳金額了！只要傳類別名稱 ★★★
+            // 改成: openCategoryDetails('${catName}')
+            catListHtml += `
+                <div onclick="openCategoryDetails('${catName}')" class="flex items-center gap-3 cursor-pointer active:scale-[0.98] transition hover:bg-gray-50 p-2 rounded-xl -mx-2">
+                    <div class="w-10 h-10 rounded-full ${cfg.iconBg} ${cfg.text} flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid ${cfg.icon}"></i>
                     </div>
-                    <div class="font-bold text-gray-800"><span class="text-xs mr-0.5">$</span>${stats.amount.toLocaleString()}</div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-xs font-bold w-12 text-right shrink-0 text-gray-500">${percent}%</span>
-                    <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div class="h-full rounded-full" style="width: ${percent}%; background-color: ${cfg.chartColor}"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-end mb-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-gray-700">${catName}</span>
+                                <span class="text-xs text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">${stats.count} 筆</span>
+                            </div>
+                            <div class="font-bold text-gray-800"><span class="text-xs mr-0.5">$</span>${stats.amount.toLocaleString()}</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-bold w-12 text-right shrink-0 text-gray-500">${percent}%</span>
+                            <div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full" style="width: ${percent}%; background-color: ${cfg.chartColor}"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- 加入一個小箭頭提示它是可點的 -->
-            <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
-        </div>`;
-});
+                    <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                </div>`;
+        });
             catListHtml += `</div>`;
 
             // 1. ★★★ 新增這段：產生右側圖例 HTML (Legend) ★★★
